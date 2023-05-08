@@ -1,4 +1,4 @@
-let myLibrary = [];
+const myLibrary = [];
 
 class Book {
   constructor(title, author, pages, alreadyRead) {
@@ -43,3 +43,17 @@ function displayAllBooks(library) {
 }
 
 displayAllBooks(myLibrary);
+
+const addBookForm = document.querySelector('.add-book-form');
+addBookForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log(e);
+
+  const title = e.target.title.value;
+  const author = e.target.author.value;
+  const pages = e.target.pages.value;
+  const alreadyRead = e.target.alreadyRead.value;
+
+  const bookToAdd = new Book(title, author, pages, alreadyRead);
+  addBook(myLibrary, bookToAdd);
+});
