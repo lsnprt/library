@@ -8,6 +8,7 @@ class Book {
     this.alreadyRead = alreadyRead;
   }
 
+  // Test method
   info() {
     return `${this.title} by ${this.author} is ${this.pages} pages long, ${
       this.alreadyRead ? 'has been' : 'not yet'
@@ -19,6 +20,7 @@ class Book {
   }
 }
 
+// Fake Database for myLibrary, data may not be accurate for the books
 const lotr = new Book('Lord of The Rings', 'J.R.R. Tolkien', 1000, false);
 const matilda = new Book('Matilda', 'R. Dahl', '100', true);
 const vitaedottr = new Book(
@@ -29,6 +31,7 @@ const vitaedottr = new Book(
 );
 
 function addBook(library, book) {
+  book.id = library.length;
   library.push(book);
 }
 
@@ -57,3 +60,24 @@ addBookForm.addEventListener('submit', (e) => {
   const bookToAdd = new Book(title, author, pages, alreadyRead);
   addBook(myLibrary, bookToAdd);
 });
+
+function createBookCard(book) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.setAttribute('id', book.id);
+
+  const cardHeader = document.createElement('h2');
+  cardHeader.innerText = book.title;
+  card.appendChild(cardHeader);
+
+  const cardBodyAuthor = document.createElement('p');
+  cardBodyAuthor.innerText = book.author;
+  card.appendChild(cardBodyAuthor);
+
+  const cardBodyPages = document.createElement('p');
+  cardBodyPages.innerText = `${book.pages} pages`;
+  card.appendChild(cardBodyPages);
+
+  const bookContainer = document.querySelector('.books-container');
+  bookContainer.appendChild(card);
+}
