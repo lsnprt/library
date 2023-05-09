@@ -88,6 +88,7 @@ function createBookCard(book) {
 }
 
 const addBookForm = document.querySelector('.add-book-form');
+
 addBookForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -100,4 +101,26 @@ addBookForm.addEventListener('submit', (e) => {
   addBook(myLibrary, bookToAdd);
 
   createBookCard(bookToAdd);
+
+  // Reset form
+  e.target.title.value = '';
+  e.target.author.value = '';
+  e.target.pages.value = '';
+  e.target.alreadyRead.value = undefined;
+
+  // Close modal
+  const addBookWrapper = document.querySelector('.add-book-wrapper');
+  addBookWrapper.style.display = 'none';
+});
+
+const addBookButton = document.querySelector('#add-book > button');
+addBookButton.addEventListener('click', () => {
+  const addBookWrapper = document.querySelector('.add-book-wrapper');
+  addBookWrapper.style.display = 'block';
+
+  window.addEventListener('click', (e) => {
+    if (e.target === addBookWrapper) {
+      addBookWrapper.style.display = 'none';
+    }
+  });
 });

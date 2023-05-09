@@ -10,26 +10,47 @@
   <body>
     <header>
       <h1>Library</h1>
-      <button>Add Book</button>
     </header>
     <main>
-      <div class="books-container"></div>
-      <div class="add-book-form">
-        <h2>Add book</h2>
-        <form>
-          <label for="title">Title</label>
-          <input type="text" id="title" name="title" />
-          <label for="author">Author</label>
-          <input type="text" id="author" />
-          <label for="pages">Number of Pages</label>
-          <input type="number" id="pages" name="pages" />
-          <label for="alreadyRead">Have you read it?</label>
-          <input type="checkbox" name="alreadyRead" id="alreadyRead" />
-          <button class="submit" type="submit">Add</button>
-        </form>
+      <div class="books-container">
+        <div class="card" id="add-book">
+          <h2>Add Book</h2>
+          <button>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <title>book-plus</title>
+              <path
+                d="M13 19C13 20.1 13.3 21.12 13.81 22H6C4.89 22 4 21.11 4 20V4C4 2.9 4.89 2 6 2H7V9L9.5 7.5L12 9V2H18C19.1 2 20 2.89 20 4V13.09C19.67 13.04 19.34 13 19 13C15.69 13 13 15.69 13 19M20 18V15H18V18H15V20H18V23H20V20H23V18H20Z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </main>
     <footer>lsnprt &copy; 2023</footer>
+    <div class="add-book-wrapper">
+      <div class="add-book-form">
+        <h2>Add book</h2>
+        <form id="add">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required />
+          </div>
+          <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" id="author" required />
+          </div>
+          <div class="form-group">
+            <label for="pages">Nr of Pages</label>
+            <input type="number" id="pages" name="pages" required />
+          </div>
+          <div class="form-group">
+            <label for="alreadyRead">Read it?</label>
+            <input type="checkbox" name="alreadyRead" id="alreadyRead" />
+          </div>
+        </form>
+        <button form="add" class="submit" type="submit">Add</button>
+      </div>
+    </div>
     <script src="./script.js"></script>
   </body>
 </html>
