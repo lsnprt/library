@@ -1,4 +1,5 @@
-const myLibrary = [];
+let myLibrary = [];
+let idGenerator = 0;
 
 class Book {
   constructor(title, author, pages, alreadyRead) {
@@ -31,7 +32,7 @@ const vitaedottr = new Book(
 );
 
 function addBook(library, book) {
-  book.id = library.length;
+  book.id = idGenerator++;
   library.push(book);
 }
 
@@ -47,10 +48,48 @@ function displayAllBooks(library) {
 
 displayAllBooks(myLibrary);
 
+function setupEventListeners(id) {
+  const checkbox = document.querySelector(`#book${id}`);
+  checkbox.addEventListener('change', () => {
+    myLibrary.find((book) => book.id === id).changeReadStatus();
+  });
+
+  const removeButton = document.querySelector(`#remove${id}`);
+  removeButton.addEventListener('click', (event) => {
+    myLibrary = myLibrary.filter((book) => book.id !== id);
+
+    const divToRemove = event.target.parentNode;
+    for (let i = divToRemove.childElementCount; i > 0; i--) {
+      divToRemove.removeChild(divToRemove.lastChild);
+    }
+
+    divToRemove.remove();
+  });
+}
+
+function createBookCard(book) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.setAttribute('id', book.id);
+
+  // Attempt at doing something React-like with the limitations of vanilla JS
+  card.innerHTML = `<h2>${book.title}</h2>
+  <p>${book.author}</p>
+  <p>${book.pages} pages</p>
+  <input type="checkbox" name="alreadyRead" id="book${book.id}"
+  ${book.alreadyRead ? 'checked' : ''} />
+  <label for="book${book.id}">Read?</label>
+  <button id="remove${book.id}">Remove book</button>`;
+
+  const bookContainer = document.querySelector('.books-container');
+  bookContainer.appendChild(card);
+
+  setupEventListeners(book.id);
+}
+
 const addBookForm = document.querySelector('.add-book-form');
 addBookForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  console.log(e);
 
   const title = e.target.title.value;
   const author = e.target.author.value;
@@ -59,25 +98,6 @@ addBookForm.addEventListener('submit', (e) => {
 
   const bookToAdd = new Book(title, author, pages, alreadyRead);
   addBook(myLibrary, bookToAdd);
+
+  createBookCard(bookToAdd);
 });
-
-function createBookCard(book) {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.setAttribute('id', book.id);
-
-  const cardHeader = document.createElement('h2');
-  cardHeader.innerText = book.title;
-  card.appendChild(cardHeader);
-
-  const cardBodyAuthor = document.createElement('p');
-  cardBodyAuthor.innerText = book.author;
-  card.appendChild(cardBodyAuthor);
-
-  const cardBodyPages = document.createElement('p');
-  cardBodyPages.innerText = `${book.pages} pages`;
-  card.appendChild(cardBodyPages);
-
-  const bookContainer = document.querySelector('.books-container');
-  bookContainer.appendChild(card);
-}
