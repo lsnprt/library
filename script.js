@@ -76,13 +76,15 @@ function createBookCard(book) {
   card.innerHTML = `<h2>${book.title}</h2>
   <p>${book.author}</p>
   <p>${book.pages} pages</p>
+  <span>
+  <label for="book${book.id}">Read?</label>
   <input type="checkbox" name="alreadyRead" id="book${book.id}"
   ${book.alreadyRead ? 'checked' : ''} />
-  <label for="book${book.id}">Read?</label>
+  </span>
   <button id="remove${book.id}">Remove book</button>`;
 
   const bookContainer = document.querySelector('.books-container');
-  bookContainer.appendChild(card);
+  bookContainer.insertBefore(card, bookContainer.firstChild);
 
   setupEventListeners(book.id);
 }
