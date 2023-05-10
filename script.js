@@ -21,32 +21,10 @@ class Book {
   }
 }
 
-// Fake Database for myLibrary, data may not be accurate for the books
-const lotr = new Book('Lord of The Rings', 'J.R.R. Tolkien', 1000, false);
-const matilda = new Book('Matilda', 'R. Dahl', '100', true);
-const vitaedottr = new Book(
-  'Vita e Dottrina di Kant',
-  'E. Cassirer',
-  400,
-  true
-);
-
 function addBook(library, book) {
   book.id = idGenerator++;
   library.push(book);
 }
-
-addBook(myLibrary, lotr);
-addBook(myLibrary, matilda);
-addBook(myLibrary, vitaedottr);
-
-function displayAllBooks(library) {
-  library.forEach((b) => {
-    console.log(b.info());
-  });
-}
-
-displayAllBooks(myLibrary);
 
 function setupEventListeners(id) {
   const checkbox = document.querySelector(`#book${id}`);
